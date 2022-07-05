@@ -1,6 +1,13 @@
 import React from 'react';
+import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
+import SpeedSvg from '../../assets/speed.svg'
+import AccelerationSvg from '../../assets/acceleration.svg'
+import ForceSvg from '../../assets/force.svg'
+import GasolineSvg from '../../assets/gasoline.svg'
+import People from '../../assets/people.svg'
+import ExchangeSvg from '../../assets/Exchange.svg'
 
 import {
   Container,
@@ -14,8 +21,11 @@ import {
   Rent,
   Period,
   Price,
-  About
+  About,
+  Acessories,
+  Footer,
 } from './styles';
+import { Button } from '../../components/Button';
 
 export function CarDetails() {
   return (
@@ -42,12 +52,44 @@ export function CarDetails() {
           </Rent>
         </Details>
 
+        <Acessories>
+          <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+            <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+            <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+            <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+            <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+            <Acessory 
+          name='308km/h'
+          icon={SpeedSvg}
+          />
+        </Acessories>
+
+
         <About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Perferendis, at, molestias harum ab maiores sit facere perspiciatis porro blanditiis, in ea magnam corporis nesciunt delectus quia eos. 
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Perferendis, at, molestias harum ab maiores sit facere perspiciatis porro blanditiis, in ea magnam corporis nesciunt delectus quia eos.
           Fugit, molestiae accusantium.
         </About>
       </Content>
+
+      <Footer>
+        <Button title='Confirmar' color='red'/>
+      </Footer>
     </Container>
   );
 }
