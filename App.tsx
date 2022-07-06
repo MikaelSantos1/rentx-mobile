@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { CarDetails } from './src/screens/CarDetails';
+
 import { useFonts, Archivo_400Regular, Archivo_500Medium, Archivo_600SemiBold } from '@expo-google-fonts/archivo'
 
 import { Inter_400Regular, Inter_500Medium, } from '@expo-google-fonts/inter'
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/styles/theme';
+import { Scheduling } from './src/screens/Scheduling';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,7 +22,7 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme}>
-      <CarDetails />
+      <Scheduling />
     </ThemeProvider>
     
   );
