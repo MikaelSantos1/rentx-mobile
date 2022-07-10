@@ -133,7 +133,7 @@ export function SchedulingDetails() {
 
       <Footer>
         <Button 
-        title='AlugarAgora' 
+        title='Alugar agora' 
         color={theme.colors.success}
         onPress={handleConfirmRental}
         />

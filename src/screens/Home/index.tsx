@@ -21,19 +21,10 @@ export function Home() {
   const [loading,setLoading]= useState(true)
   const navigation = useNavigation()
 
-  const carData={
-    brand:'Audi',
-    name:'Audi a3',
-    rent:{
-        period:'Dia',
-        price:140,
-    },
-    thumbnail:'https://storage.googleapis.com/golden-wind/ignite/react-native/images/1.png',
+  function handleCarDetails(car:CarDTO){
+    navigation.navigate('CarDetails',{car})
   }
 
-  function handleCarDetails(){
-    navigation.navigate('CarDetails')
-  }
   useEffect(()=>{
       async function fetchCars(){
         try{
@@ -74,7 +65,7 @@ export function Home() {
         data={cars}
         keyExtractor={item=>(item.id)}
         renderItem={({item})=>
-        <Car data={item} onPress={handleCarDetails}/>}
+        <Car data={item} onPress={()=>handleCarDetails(item)}/>}
         />
       }
      

@@ -2,12 +2,6 @@ import React from 'react';
 import { Acessory } from '../../components/Acessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
-import SpeedSvg from '../../assets/speed.svg'
-import AccelerationSvg from '../../assets/acceleration.svg'
-import ForceSvg from '../../assets/force.svg'
-import GasolineSvg from '../../assets/gasoline.svg'
-import People from '../../assets/people.svg'
-import ExchangeSvg from '../../assets/Exchange.svg'
 
 import {
   Container,
@@ -22,75 +16,68 @@ import {
   Period,
   Price,
   About,
-  Acessories,
+  Accessories,
   Footer,
 } from './styles';
 import { Button } from '../../components/Button';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation , useRoute} from '@react-navigation/native';
+import { CarDTO } from '../../dtos/CarDTO';
+import { getAccesoryIcon } from '../../utils/getAccesoryIcon';
+
+interface Params{
+    car:CarDTO
+}
 
 export function CarDetails() {
   const navigation = useNavigation()
+  const routes = useRoute()
+  const {car} = routes.params as Params
+
 
   function handleConfirmRental(){
     navigation.navigate('Scheduling')
+  }
+  function handleBack(){
+    navigation.goBack()
   }
 
   return (
     <Container>
       <Header>
         <BackButton
-          onPress={() => { }}
+          onPress={handleBack}
         />
       </Header>
       <CarImages>
-        <ImageSlider imagesUrl={['https://storage.googleapis.com/golden-wind/ignite/react-native/images/1.png']} />
+        <ImageSlider imagesUrl={car.photos} />
       </CarImages>
 
       <Content>
         <Details>
           <Description>
-            <Brand>audi</Brand>
-            <Name>Audi a4</Name>
+            <Brand>{car.brand}</Brand>
+            <Name>{car.name}</Name>
 
           </Description>
           <Rent>
-            <Period>teste</Period>
-            <Price>1222</Price>
+            <Period>{car.rent.period}</Period>
+            <Price> R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
-        <Acessories>
-          <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-            <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-            <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-            <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-            <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-            <Acessory 
-          name='308km/h'
-          icon={SpeedSvg}
-          />
-        </Acessories>
+        <Accessories>
+         {car.accessories.map(acessory=>(
+           <Acessory 
+           key={acessory.type}
+           name={acessory.name}
+           icon={getAccesoryIcon(acessory.type)}
+           />
+         ))}
+        </Accessories>
 
 
         <About>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Perferendis, at, molestias harum ab maiores sit facere perspiciatis porro blanditiis, in ea magnam corporis nesciunt delectus quia eos.
-          Fugit, molestiae accusantium.
+         {car.about}
         </About>
       </Content>
 
