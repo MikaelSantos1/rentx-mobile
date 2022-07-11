@@ -1,7 +1,13 @@
+import { ReactNode } from 'react';
 import { FlatList } from 'react-native';
+import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { CarDTO } from '../../dtos/CarDTO';
+
+interface MyCarsButtonProps extends RectButtonProps{
+    children:ReactNode
+}
 
 export const Container = styled.View`
     flex: 1;
@@ -35,4 +41,18 @@ export const CarList= styled(FlatList as new ()=> FlatList<CarDTO>).attrs({
     }
 })`
    
+`
+export const MyCarsButton= styled(RectButton)<MyCarsButtonProps>`
+    width:60px;
+    height:60px;
+
+    justify-content:center;
+    align-items:center;
+    border-radius:30px;
+
+    position:absolute;
+    bottom:13px;
+    right:22px;
+
+    background-color: ${({theme})=>theme.colors.main};
 `
