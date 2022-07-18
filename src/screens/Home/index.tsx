@@ -8,6 +8,8 @@ import {
   HeaderContent,
   CarList,
   MyCarsButton
+
+
 } from './styles';
 import Logo from '../../assets/logo.svg'
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -17,6 +19,7 @@ import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
 import { Load } from '../../components/Load';
 import { useTheme } from 'styled-components';
+
 
 export function Home() {
   const [cars,setCars]= useState<CarDTO[]>([])
@@ -73,7 +76,10 @@ export function Home() {
         data={cars}
         keyExtractor={item=>(item.id)}
         renderItem={({item})=>
-        <Car data={item} onPress={()=>handleCarDetails(item)}/>}
+        
+            <Car data={item} onPress={()=>handleCarDetails(item)}/>
+           
+        }
         />
       }
      <MyCarsButton onPress={handleOpenMyCars}>
