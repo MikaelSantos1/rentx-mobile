@@ -1,20 +1,23 @@
 import React from 'react';
-import { Button, StyleSheet } from 'react-native';
-import Animated , {useSharedValue,useAnimatedStyle} from 'react-native-reanimated';
+import { Button, StyleSheet ,Dimensions} from 'react-native';
+import Animated , {useSharedValue,useAnimatedStyle, withTiming} from 'react-native-reanimated';
 import {
   Container
 } from './styles';
 
 
 export function Splash(){
+  const WIDTH = Dimensions.get('window').width
   const animation= useSharedValue(0)
   const animatedStyles= useAnimatedStyle(()=>{
     return {
-        transform:[{translateX:animation.value}]
+        transform:[{translateX:withTiming(animation.value,{
+          duration:3000
+        })}]
     }
   })
   function handeAnimationPosition(){
-    animation.value=100
+    animation.value=Math.random() * (WIDTH - 100)
   }
   return (
     <Container>
