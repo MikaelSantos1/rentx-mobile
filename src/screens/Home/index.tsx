@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar,BackHandler } from 'react-native';
 import {Ionicons} from '@expo/vector-icons'
 import {
   Container,
@@ -19,6 +19,7 @@ import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
 import { Load } from '../../components/Load';
 import { useTheme } from 'styled-components';
+import { LoadingAnimation } from '../../components/LoadingAnimation';
 
 
 export function Home() {
@@ -51,7 +52,11 @@ export function Home() {
       }
       fetchCars()
   },[])
-
+  useEffect(()=>{
+    BackHandler.addEventListener('hardwareBackPress',()=>{
+      return true
+    })
+  },[])
   return (
     <Container>
       <StatusBar barStyle='light-content'
@@ -64,14 +69,18 @@ export function Home() {
             width={RFValue(108)}
             height={RFValue(12)}
           />
-          <TotalCars>
+          {
+            !loading &&
+            <TotalCars>
             Total de {cars.length} carros
           </TotalCars>
+          }
+          
         </HeaderContent>
       </Header>
       
       {
-        loading ? <Load/>
+        loading ? <LoadingAnimation/>
         : <CarList
         data={cars}
         keyExtractor={item=>(item.id)}
