@@ -31,15 +31,17 @@ export function Input({iconName,value,...rest}:InputProps){
     const theme = useTheme();
 
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container >
+      <IconContainer isFocused={isFocused} >
         <Feather
         name={iconName}
         size={24}
         color={(isFocused ||isFilled )?theme.colors.main:theme.colors.text_detail}
+        
         />
         </IconContainer>
-        <InputText 
+        <InputText
+        isFocused={isFocused} 
         onFocus={handleInputFocus}
         onBlur={handleInputBloor}
         {...rest}

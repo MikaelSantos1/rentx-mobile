@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback } from 'react-native';
+import { Alert, Keyboard, KeyboardAvoidingView, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { PassowordInput } from '../../components/PasswordInput';
 import theme from '../../styles/theme';
-
+import * as Yup from 'yup'
 
 import {
     Container,
@@ -14,10 +14,32 @@ import {
     Footer,
     Form
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
-export function Signin() {
+export  function Signin() {
     const [email,setEmail]= useState('')
     const [password,setPassword]= useState('')
+    const navigation = useNavigation()
+    async  function handleSign(){
+        try{
+            const schema = Yup.object().shape({
+                email:Yup.string().required('Email obrigatorio').email('Digite um email valido'),
+                password:Yup.string().required('Senha é obrigatória ')
+            })
+            await schema.validate({email,password})
+            Alert.alert('Tudo certo!')
+        }catch(error){
+            if(error instanceof Yup.ValidationError){
+                 Alert.alert('Opa',error.message)
+            }else{
+                 Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer login. Verifique as credenciais')
+            }
+        }
+       
+    }
+    function handleNewAccount(){
+        navigation.navigate('SignUpFirstStep')
+    }
     return (
         <KeyboardAvoidingView behavior='position' enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -47,7 +69,7 @@ export function Signin() {
                         <PassowordInput
                             iconName='lock'
                             placeholder='Senha'
-                            secureTextEntry
+                           
                             value={password}
                             onChangeText={setPassword}
                         />
@@ -56,14 +78,14 @@ export function Signin() {
                     <Footer>
                         <Button
                             title='Login'
-                            onPress={() => { }}
-                            enabled={false}
+                            onPress={ handleSign}
+                            enabled={true}
                             loading={false} />
 
                         <Button
                             title='Criar conta gratuita'
                             color={theme.colors.background_secondary}
-                            onPress={() => { }}
+                            onPress={handleNewAccount}
                             enabled={true}
                             loading={false}
                             light

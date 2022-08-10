@@ -37,8 +37,8 @@ export function PassowordInput({ iconName,value, ...rest }: InputProps) {
     setIsPasswordVisible(prevState=>!prevState)
   }
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container >
+      <IconContainer isFocused={isFocused} >
       <Feather
         name={iconName}
         size={24}
@@ -47,14 +47,16 @@ export function PassowordInput({ iconName,value, ...rest }: InputProps) {
       </IconContainer>
 
       <InputText 
+        isFocused={isFocused} 
         onFocus={handleInputFocus}
         onBlur={handleInputBloor}
+        secureTextEntry={!isPasswordVisible}
         {...rest}
         
         />
 
       <BorderlessButton onPress={handlePasswordVisibilityChange}>
-        <IconContainer>
+        <IconContainer isFocused={isFocused}>
           <Feather
             name={!isPasswordVisible?'eye':'eye-off'}
             size={24}
