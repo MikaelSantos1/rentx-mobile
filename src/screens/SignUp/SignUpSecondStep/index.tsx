@@ -41,6 +41,12 @@ export function SignUpSecondStep() {
         if(password!=passwordConfirm){
             return Alert.alert('As senhas nao sao iguais')
         }
+        navigation.navigate('Confirmation',{
+            nextScreenRoute:'Signin',
+            title:'Conta criada!',
+            message:`Agora é so fazer login ${'\n'}e aproveitar sua conta`
+        
+        })
     }
    const theme = useTheme()
     return (

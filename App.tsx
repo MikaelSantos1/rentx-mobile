@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components/native';
 import theme from './src/styles/theme';
 import { Scheduling } from './src/screens/Scheduling';
 import { SchedulingDetails } from './src/screens/SchedulingDetails';
-import { SchedulingComplete } from './src/screens/SchedulingComplete';
+import { Confirmation } from './src/screens/Confirmation';
 import { Routes } from './src/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 

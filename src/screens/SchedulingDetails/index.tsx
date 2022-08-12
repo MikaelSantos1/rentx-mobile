@@ -84,7 +84,10 @@ export function SchedulingDetails() {
     unavailable_dates
   })
   .then(()=>
-    navigation.navigate('SchedulingComplete')
+    navigation.navigate('Confirmation',{ 
+    nextScreenRoute:'Home',
+    title:'Conta alugado!',
+    message:`Agora você so precisa ir ${'\n'}até a concessrionaria da RENTX`})
   ).catch(()=>{
     Alert.alert('Não foi possivel confirmar o agendamento')
     setLoading(false)
