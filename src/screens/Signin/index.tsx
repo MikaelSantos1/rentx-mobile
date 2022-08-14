@@ -15,11 +15,15 @@ import {
     Form
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../hooks/Auth';
 
 export  function Signin() {
     const [email,setEmail]= useState('')
     const [password,setPassword]= useState('')
     const navigation = useNavigation()
+
+    const {signIn}= useAuth()
+
     async  function handleSign(){
         try{
             const schema = Yup.object().shape({
@@ -27,7 +31,7 @@ export  function Signin() {
                 password:Yup.string().required('Senha é obrigatória ')
             })
             await schema.validate({email,password})
-            Alert.alert('Tudo certo!')
+            signIn({email,password})
         }catch(error){
             if(error instanceof Yup.ValidationError){
                  Alert.alert('Opa',error.message)

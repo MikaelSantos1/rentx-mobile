@@ -17,7 +17,7 @@ export function StackRoutes() {
     return (
         <Navigator screenOptions={{
             headerShown: false
-        }} initialRouteName={'Splash'}>
+        }} initialRouteName={'Home'}>
              <Screen
                 name='Signin'
                 component={Signin}

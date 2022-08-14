@@ -12,6 +12,7 @@ import { SchedulingDetails } from './src/screens/SchedulingDetails';
 import { Confirmation } from './src/screens/Confirmation';
 import { Routes } from './src/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { AppProvider } from './src/hooks';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +28,9 @@ export default function App() {
   return (
     
     <ThemeProvider theme={theme}>
+      <AppProvider>
       <Routes/>
+      </AppProvider>
     </ThemeProvider>
    
     

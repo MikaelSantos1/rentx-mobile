@@ -7,6 +7,7 @@ import { Bullet } from '../../../components/Bullet';
 import { Button } from '../../../components/Button';
 import { Input } from '../../../components/Input';
 import { PassowordInput } from '../../../components/PasswordInput';
+import { api } from '../../../services/api';
 
 import {
     Container,
@@ -35,17 +36,27 @@ export function SignUpSecondStep() {
     function handleBack() {
         navigation.goBack()
     }
-    function handleRegister(){
+   async function handleRegister(){
         if(!password || !passwordConfirm) return Alert.alert('Informe a senha e confirme')
 
         if(password!=passwordConfirm){
             return Alert.alert('As senhas nao sao iguais')
         }
-        navigation.navigate('Confirmation',{
-            nextScreenRoute:'Signin',
-            title:'Conta criada!',
-            message:`Agora é so fazer login ${'\n'}e aproveitar sua conta`
-        
+        await api.post('/users',{
+            name:user.name,
+            email:user.email,
+            driver_license:user.driverLicense,
+            password,
+        }).then(()=>{
+            navigation.navigate('Confirmation',{
+                nextScreenRoute:'Signin',
+                title:'Conta criada!',
+                message:`Agora é so fazer login ${'\n'}e aproveitar sua conta`
+            
+            })
+        }).catch((error)=>{
+            console.log(error)
+            Alert.alert('Opa', 'Não foi possivel cadastrar')
         })
     }
    const theme = useTheme()
