@@ -1,11 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { Home } from '../screens/Home'
-import { CarDetails } from '../screens/CarDetails'
-import { Scheduling } from '../screens/Scheduling'
+
 import { Confirmation } from '../screens/Confirmation'
-import { SchedulingDetails } from '../screens/SchedulingDetails'
-import { MyCars } from '../screens/MyCars'
 import { Splash } from '../screens/Splash'
 import { Signin } from '../screens/Signin'
 import { SignUpFirstStep } from '../screens/SignUp/SignUpFirstStep'
@@ -17,7 +13,12 @@ export function AuthRoutes() {
     return (
         <Navigator screenOptions={{
             headerShown: false
-        }} initialRouteName={'Home'}>
+        }} initialRouteName={'Splash'}>
+             {/* <Screen
+                name='Splash'
+                component={Splash}
+            /> */}
+         
              <Screen
                 name='Signin'
                 component={Signin}
@@ -30,11 +31,7 @@ export function AuthRoutes() {
                 name='SignUpSecondStep'
                 component={SignUpSecondStep}
             />
-             {/* <Screen
-                name='Splash'
-                component={Splash}
-            /> */}
-         
+            
 
             <Screen
                 name='Confirmation'
