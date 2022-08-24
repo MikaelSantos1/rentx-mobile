@@ -16,6 +16,7 @@ import {
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from '../../hooks/Auth';
+import { database } from '../../database';
 
 export  function Signin() {
     const [email,setEmail]= useState('')
@@ -44,6 +45,7 @@ export  function Signin() {
     function handleNewAccount(){
         navigation.navigate('SignUpFirstStep')
     }
+   
     return (
         <KeyboardAvoidingView behavior='position' enabled>
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
