@@ -13,6 +13,8 @@ import { Confirmation } from './src/screens/Confirmation';
 import { Routes } from './src/routes';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AppProvider } from './src/hooks';
+import { AppRegistry } from 'react-native';
+AppRegistry.registerComponent('main',() => App);
 
 export default function App() {
   const [fontsLoaded] = useFonts({

@@ -9,7 +9,7 @@ export function Routes(){
   console.log(user)
   return (
     <NavigationContainer>
-      {user ? <AppTabRoutes/> : <AuthRoutes/>}
+      {user.id ? <AppTabRoutes/> : <AuthRoutes/>}
         
     </NavigationContainer>
     
