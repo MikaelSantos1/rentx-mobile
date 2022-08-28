@@ -12,6 +12,7 @@ import PeopleSvg from '../assets/people.svg'
 import CarSvg from '../assets/car.svg'
 import { useTheme } from 'styled-components'
 import { Platform } from 'react-native'
+import { Profile } from '../screens/Profile'
 
 
 
@@ -49,15 +50,7 @@ export function AppTabRoutes() {
                 }}  
             />
 
-            <Screen
-                name='Profile'
-                component={Home} 
-                options={{
-                    tabBarIcon:({color})=>(
-                        <PeopleSvg width={24} height={24} fill={color} />
-                    )
-                }}
-                />
+         
 
             <Screen
                 name='MyCars'
@@ -69,7 +62,15 @@ export function AppTabRoutes() {
                 }}
                 />
 
-            
+<Screen
+                name='Profile'
+                component={Profile} 
+                options={{
+                    tabBarIcon:({color})=>(
+                        <PeopleSvg width={24} height={24} fill={color} />
+                    )
+                }}
+                />
         </Navigator>
     )
 }
