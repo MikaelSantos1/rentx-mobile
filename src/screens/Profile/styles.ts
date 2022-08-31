@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { BorderlessButton, BorderlessButtonProps, RectButton } from 'react-native-gesture-handler';
+import { BorderlessButton, BorderlessButtonProps, GestureHandlerRootView, RectButton } from 'react-native-gesture-handler';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled,{css} from 'styled-components/native';
@@ -11,8 +11,8 @@ interface OptionProps{
     active:boolean;
 }
   
-export const Container = styled.View`
-    flex: 1;
+export const Container = styled(GestureHandlerRootView)`
+ 
     background-color:${({theme})=>theme.colors.background_primary};
 `;
 
@@ -66,7 +66,7 @@ export const PhotoButton = styled(RectButton)<ButtonProps>`
 `
 
 export const Content = styled.View`
-    flex:1;
+    
     padding: 0 24px;
     margin-top:122px;
 `
@@ -95,3 +95,4 @@ export const OptionTitle = styled.Text<OptionProps>`
     color:${({theme,active})=>active?theme.colors.header
     :theme.colors.text_detail};
 `
+export const Section =styled.View``
