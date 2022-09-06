@@ -22,26 +22,28 @@ import { Input } from '../../components/Input';
 import {
     KeyboardAvoidingView,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
+    Alert
 } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { PassowordInput } from '../../components/PasswordInput';
 import { useAuth } from '../../hooks/Auth';
 import * as ImagePicker from 'expo-image-picker';
-
+import { Button } from '../../components/Button';
+import * as Yup from 'yup'
 export function Profile() {
-    const {user}= useAuth()
+    const {user,signOut,updateUser}= useAuth()
     const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit')
     const [avatar,setAvatar]= useState(user.avatar)
     const [name,setName]= useState(user.name)
     const [driverLicense,setDriverLicense]= useState(user.driver_license)
     const theme = useTheme()
     const navigation = useNavigation()
-    
+   
     function handleBack() {
         navigation.goBack()
     }
-    function handleSignOut() { }
+  
     function handleOptionChange(optionSelected: 'dataEdit' | 'passwordEdit') {
         setOption(optionSelected)
     }
@@ -58,6 +60,47 @@ export function Profile() {
         if(result.uri){
             setAvatar(result.uri)
         }
+    }
+    async  function handleProfileUpdate(){
+        try{
+            const schema= Yup.object().shape({
+                driverLicense:Yup.string().required('CNH é obrigatória'),
+                name:Yup.string().required('Nome é obrigatório'),
+            })
+            const data = {name,driverLicense}
+            await schema.validate(data)
+            await updateUser({
+                id:user.id,
+                user_id:user.id,
+                email:user.email,
+                name,
+                driver_license:driverLicense,
+                avatar,
+                token:user.token
+            })
+            Alert.alert('Perfil atualizado!')
+        }catch(error){
+            if(error instanceof Yup.ValidationError){
+                return Alert.alert('Opa',error.message)
+            }
+            return Alert.alert('Não foi possivel atualizar o perfil')
+        }
+    }
+    async function handleSignOut(){
+        Alert.alert('Tem certeza?',
+        'Lembre-se que se você sair ira precisar de internet para conectar-se novamente',
+        [{
+            text:'Cancelar',
+            onPress:()=>{},
+            style:'cancel'
+        },
+        {
+            text:'Sair',
+            onPress:()=>signOut()
+        }
+    ]
+        )
+        
     }
     return (
         <KeyboardAvoidingView behavior='position' enabled style={{flex:1}}>
@@ -152,6 +195,10 @@ export function Profile() {
                              />
                     </Section>
                     }
+                    <Button
+                    title='Salvar alterações'
+                    onPress={handleProfileUpdate}
+                    />
                 </Content>
             </Container>
             </TouchableWithoutFeedback>
