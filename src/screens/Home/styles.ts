@@ -4,7 +4,7 @@ import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { CarDTO } from '../../dtos/CarDTO';
-
+import {Car as ModelCar} from '../../database/models/car'
 interface MyCarsButtonProps extends RectButtonProps{
     children:ReactNode
 }
@@ -34,7 +34,7 @@ export const TotalCars= styled.Text`
     color:${({theme})=>theme.colors.text};
 `
 
-export const CarList= styled(FlatList as new ()=> FlatList<CarDTO>).attrs({
+export const CarList= styled(FlatList as new ()=> FlatList<ModelCar>).attrs({
     contentContainerStyle:{
         padding:24,
         showsVerticalScrollIndicator:false

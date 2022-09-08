@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar,BackHandler } from 'react-native';
-
+import { StatusBar,BackHandler, Button } from 'react-native';
+import NetInfo, { useNetInfo } from '@react-native-community/netinfo';
 import {
   Container,
   Header,
@@ -17,28 +17,49 @@ import { Car } from '../../components/Car';
 import { useNavigation } from '@react-navigation/native';
 import { api } from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
-
+import {
+  Alert
+} from 'react-native'
 import { LoadingAnimation } from '../../components/LoadingAnimation';
-
-
+import {synchronize} from '@nozbe/watermelondb/sync'
+import { database } from '../../database';
+import { Car as ModelCar } from '../../database/models/car';
 export function Home() {
-  const [cars,setCars]= useState<CarDTO[]>([])
+  const [cars,setCars]= useState<ModelCar[]>([])
   const [loading,setLoading]= useState(true)
 
   const navigation = useNavigation()
+  const netInfo = useNetInfo()
 
-
-  function handleCarDetails(car:CarDTO){
+  function handleCarDetails(car:ModelCar){
     navigation.navigate('CarDetails',{car})
   }
-
+  async function offlineSyncronize(){
+    console.log('teste')
+    await synchronize({
+      database,
+      pullChanges: async ({lastPulledAt}) =>{
+        const {data} = await api.get(`/cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`)
+        const {changes,lastestVersion}= data
+        console.log(changes,lastestVersion)
+        return {changes,timestamp:lastestVersion}
+      },
+      pushChanges:async ({changes}) =>{
+        const users=changes.users
+        await api.post(`/users/sync/`,users)
+      }
+    })
+  }
  
 
   useEffect(()=>{
+    
     let isMonted = true
       async function fetchCars(){
         try{
           const {data}= await api.get('/cars')
+          const carsCollection = database.get<ModelCar>('cars')
+          const cars = await carsCollection.query().fetch()
           if(isMonted){
             setCars(data)
           }
@@ -71,6 +92,7 @@ export function Home() {
         backgroundColor="transparent"
       />
       <Header>
+      
         <HeaderContent>
           <Logo
             width={RFValue(108)}
@@ -85,7 +107,7 @@ export function Home() {
           
         </HeaderContent>
       </Header>
-      
+     
       {
         loading ? <LoadingAnimation/>
         : <CarList
