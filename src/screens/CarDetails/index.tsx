@@ -27,6 +27,7 @@ import Animated, { useAnimatedScrollHandler, useSharedValue, useAnimatedStyle, i
 import { StatusBar, StyleSheet } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import theme from '../../styles/theme';
+import { Car } from '../../database/models/car';
 
 interface Params {
   car: CarDTO

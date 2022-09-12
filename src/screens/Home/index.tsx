@@ -40,9 +40,9 @@ export function Home() {
       database,
       pullChanges: async ({lastPulledAt}) =>{
         const {data} = await api.get(`/cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`)
-        const {changes,lastestVersion}= data
-        console.log(changes,lastestVersion)
-        return {changes,timestamp:lastestVersion}
+        const {changes,latestVersion}= data
+        console.log(changes,latestVersion)
+        return {changes,timestamp:latestVersion}
       },
       pushChanges:async ({changes}) =>{
         const users=changes.users
@@ -59,9 +59,10 @@ export function Home() {
         try{
           const {data}= await api.get('/cars')
           const carsCollection = database.get<ModelCar>('cars')
-          const cars = await carsCollection.query().fetch()
+          const car = await carsCollection.query().fetch()
+          console.log(car)
           if(isMonted){
-            setCars(data)
+            setCars(car)
           }
           
         }catch(err){
@@ -121,7 +122,7 @@ export function Home() {
         />
       }
    
-     
+     <Button title='Sincronizar' onPress={offlineSyncronize}/>
     </Container>
   );
 }
